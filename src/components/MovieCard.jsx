@@ -1,26 +1,40 @@
-import { memo } from 'react';
-import PropTypes from 'prop-types';
-import LazyImage from './LazyImage';
+import { Link } from 'react-router-dom';
+import '../styles/components/MovieCard.css';
 
-const MovieCard = memo(function MovieCard({ movie, onClick }) {
+function MovieCard({ movie, onClick }) {
+  const handleClick = (e) => {
+    // Si hay una función onClick proporcionada (para el modal), 
+    // la ejecutamos pero NO prevenimos la navegación por defecto
+    if (onClick) {
+      onClick(movie);
+      
+      // Prevenimos la navegación por defecto SOLO si estamos en modo modal
+      // Esto permite que el enlace funcione normalmente cuando no se usa el modal
+      e.preventDefault();
+    }
+  };
+
   return (
-    <div className="movie-card" onClick={() => onClick(movie)}>
-      <LazyImage 
-        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
-        alt={movie.title}
-        className="movie-poster"
-      />
-    </div>
+    <article className="movie-card">
+      <Link 
+        to={`/movie/${movie.id}`} 
+        className="movie-card-link"
+        onClick={handleClick}
+      >
+        {movie.poster_path ? (
+          <img 
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title}
+            className="movie-poster"
+          />
+        ) : (
+          <div className="movie-poster-placeholder">
+            <span className="movie-title">{movie.title}</span>
+          </div>
+        )}
+      </Link>
+    </article>
   );
-});
-
-MovieCard.propTypes = {
-  movie: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    poster_path: PropTypes.string
-  }).isRequired,
-  onClick: PropTypes.func.isRequired
-};
+}
 
 export default MovieCard;

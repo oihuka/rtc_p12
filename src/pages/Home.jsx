@@ -1,47 +1,39 @@
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import MovieList from '../components/MovieList';
-import useMovieApi from '../hooks/useMovieApi';
+import LoadingSpinner from '../components/LoadingSpinner';
+import '../styles/pages/Home.css';
 
-function Home({ state, dispatch }) {
-  const { getPopularMovies } = useMovieApi();
+function Home() {
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchMovies = async () => {
-      dispatch({ type: 'SET_LOADING' });
       try {
-        const results = await getPopularMovies();
-        dispatch({ type: 'SET_MOVIES', payload: results });
-      } catch (error) {
-        dispatch({ type: 'SET_ERROR', payload: `Error al cargar las películas: ${error.message}` });
+        const response = await axios.get(
+          'https://api.themoviedb.org/3/movie/popular?api_key=' + import.meta.env.VITE_TMDB_API_KEY + '&language=es-ES'
+        );
+        setMovies(response.data.results);
+        setLoading(false);
+      } catch (err) {
+        setError('Error al cargar las películas');
+        setLoading(false);
       }
     };
 
     fetchMovies();
-  }, [dispatch, getPopularMovies]);
+  }, []);
 
-  if (state.loading) {
-    return <div className="loading">Cargando películas...</div>;
-  }
+  if (loading) return <LoadingSpinner message="Cargando películas populares..." />;
+  if (error) return <section className="error">{error}</section>;
 
-  if (state.error) {
-    return <div className="error">{state.error}</div>;
-  }
-
-  if (!state.movies || state.movies.length === 0) {
-    return <div className="no-results">No hay películas disponibles</div>;
-  }
-
-  return <MovieList movies={state.movies} />;
+  return (
+    <section className="home-container">
+      <MovieList movies={movies} useModal={true} />
+    </section>
+  );
 }
-
-Home.propTypes = {
-  state: PropTypes.shape({
-    loading: PropTypes.bool.isRequired,
-    error: PropTypes.string,
-    movies: PropTypes.array
-  }).isRequired,
-  dispatch: PropTypes.func.isRequired
-};
 
 export default Home;

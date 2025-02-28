@@ -1,0 +1,18 @@
+.movie-grid {
+  width: 100%;
+  max-width: 1200px;
+  margin: 5rem auto 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 0 2rem;
+  justify-content: flex-start;
+}
+
+@media (max-width: 768px) {
+  .movie-grid {
+    justify-content: center;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+}

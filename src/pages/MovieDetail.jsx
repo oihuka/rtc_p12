@@ -1,78 +1,66 @@
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import useMovieApi from '../hooks/useMovieApi';
+import { FaStar } from 'react-icons/fa';
+import axios from 'axios';
+import LoadingSpinner from '../components/LoadingSpinner';
+import '../styles/pages/MovieDetail.css';
 
-function MovieDetail({ state, dispatch }) {
+function MovieDetail() {
   const { id } = useParams();
-  const { getMovieDetails } = useMovieApi();
+  const [movie, setMovie] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchMovie = async () => {
-      dispatch({ type: 'SET_LOADING' });
       try {
-        const movieData = await getMovieDetails(id);
-        dispatch({ type: 'SET_SELECTED_MOVIE', payload: movieData });
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${id}?api_key=` + import.meta.env.VITE_TMDB_API_KEY + `&language=es-ES`
+        );
+        setMovie(response.data);
+        setLoading(false);
       } catch (error) {
-        dispatch({ type: 'SET_ERROR', payload: `Error al cargar los detalles de la película: ${error.message}` });
+        console.error('Error al cargar la película:', error);
+        setLoading(false);
       }
     };
 
     fetchMovie();
-  }, [id, dispatch, getMovieDetails]);
+  }, [id]);
 
-  if (state.loading) return <div className="loading">Cargando...</div>;
-  if (state.error) return <div className="error">{state.error}</div>;
-  if (!state.selectedMovie) return <div className="error">No se pudo cargar la película</div>;
-
-  const movie = state.selectedMovie;
+  if (loading) return <LoadingSpinner message="Cargando detalles de la película..." />;
+  if (!movie) return <section className="error">No se pudo cargar la película</section>;
 
   return (
-    <div className="movie-detail-container">
-      <div className="movie-detail-content">
-        <div className="movie-detail-poster">
-          <img 
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
-            alt={movie.title} 
-          />
-        </div>
-        <div className="movie-detail-info">
-          <h1>{movie.title}</h1>
-          <div className="movie-meta">
-            <span className="release-date">{movie.release_date.split('-')[0]}</span>
-            <span className="rating">⭐ {movie.vote_average.toFixed(1)}</span>
-          </div>
+    <article className="movie-detail-container">
+      <section className="movie-detail-content">
+        {movie.poster_path && (
+          <figure className="movie-detail-poster">
+            <img 
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
+              alt={movie.title} 
+              className="responsive-image"
+            />
+          </figure>
+        )}
+        <section className="movie-detail-info">
+          <header>
+            <h1>{movie.title}</h1>
+            <div className="movie-meta">
+              <time>{movie.release_date.split('-')[0]}</time>
+              <span className="rating">
+                <FaStar className="star-icon" /> {movie.vote_average.toFixed(1)}
+              </span>
+            </div>
+          </header>
           <p className="overview">{movie.overview}</p>
-          <div className="additional-info">
+          <footer className="additional-info">
             <p><strong>Género:</strong> {movie.genres?.map(g => g.name).join(', ')}</p>
             <p><strong>Duración:</strong> {movie.runtime} minutos</p>
-          </div>
-        </div>
-      </div>
-    </div>
+          </footer>
+        </section>
+      </section>
+    </article>
   );
 }
-
-MovieDetail.propTypes = {
-  state: PropTypes.shape({
-    loading: PropTypes.bool.isRequired,
-    error: PropTypes.string,
-    selectedMovie: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      poster_path: PropTypes.string,
-      release_date: PropTypes.string,
-      vote_average: PropTypes.number,
-      runtime: PropTypes.number,
-      overview: PropTypes.string,
-      genres: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number,
-          name: PropTypes.string
-        })
-      )
-    })
-  }).isRequired,
-  dispatch: PropTypes.func.isRequired
-};
 
 export default MovieDetail;
