@@ -1,34 +1,31 @@
-# RTC PR-12: MovieApp (Advanced)
+# RTC PR-12: Chess Coach ♟️
 
-Una aplicación web moderna para explorar y buscar películas, construida con React y Vite.
+Una aplicación web moderna para aprender y practicar ajedrez, construida con React y Vite. Esta aplicación proporciona una interfaz interactiva para jugar ajedrez con un diseño responsive y moderno.
 
 ## Características
 
-- 🎬 Exploración de películas populares
-- 🔍 Búsqueda en tiempo real
-- 📱 Diseño responsive
+- ♟️ Tablero de ajedrez interactivo
+- 📱 Diseño responsive que mantiene el tablero cuadrado
+- 🎯 Movimientos de piezas validados
 - 🌙 Modo oscuro por defecto
-- ⚡ Carga optimizada de imágenes (lazy loading)
 - 🔄 Gestión de estado global
-- 📑 Navegación entre páginas
-- 🎯 Modales interactivos
+- ⚡ Rendimiento optimizado
+- 🎨 Diseño limpio y profesional
 - ⚠️ Manejo de errores
-- 🚀 Optimización de rendimiento
+- 🔍 Validación de movimientos en tiempo real
 
 ## Tecnologías
 
 - React 19
 - Vite 6
-- Axios 1.7
-- React Router DOM 7
-- React Icons 5
-- The Movie Database API
+- PropTypes 15.8
+- React Icons 5.4.0
+- React Router DOM 7.1.5
 
 ## Requisitos Previos
 
 - Node.js (v14 o superior)
 - npm o yarn
-- API Key de TMDB
 
 ## Instalación
 
@@ -44,13 +41,7 @@ git clone https://github.com/oihuka/rtc_p12.git
 npm install
 ```
 
-3. Crea un archivo `.env` en la raíz del proyecto:
-
-```env
-VITE_TMDB_API_KEY=tu_api_key_aquí
-```
-
-4. Inicia el servidor de desarrollo:
+3. Inicia el servidor de desarrollo:
 
 ```bash
 npm run dev
@@ -60,13 +51,35 @@ npm run dev
 
 ```
 src/
-├── components/    # Componentes reutilizables
-├── pages/         # Páginas de la aplicación
-├── hooks/         # Custom hooks
-├── reducers/      # Gestión de estado global
-├── services/      # Servicios y configuración de API
-└── .css           # Estilos CSS de la aplicación
+├── assets/ # Recursos estáticos e imágenes de piezas
+├── components/ # Componentes reutilizables
+│ ├── ChessBoard/ # Componente principal del tablero
+│ └── ... # Otros componentes
+├── pages/ # Páginas de la aplicación
+├── hooks/ # Custom hooks
+├── reducers/ # Gestión de estado global
+├── styles/ # Estilos CSS modulares
+└── utils/ # Utilidades y lógica del juego
 ```
+
+## Componentes Principales
+
+### ChessBoard
+
+El componente central de la aplicación que implementa:
+
+- Tablero de 8x8 responsive
+- Manejo de estado para posiciones de piezas
+- Validación de movimientos
+- Interfaz interactiva para el jugador
+
+## Características del Tablero
+
+- Diseño responsive que mantiene la proporción cuadrada
+- Sistema de coordenadas integrado
+- Soporte para movimientos de piezas
+- Validación de movimientos legales
+- Interfaz intuitiva para el usuario
 
 ## Scripts Disponibles
 
@@ -74,6 +87,26 @@ src/
 - `npm run build`: Genera la versión de producción
 - `npm run preview`: Previsualiza la versión de producción
 - `npm run lint`: Ejecuta el linter para verificar el código
+- `npm run clean`: Limpia los directorios de build y dependencias
+
+## Buenas Prácticas Implementadas
+
+- Uso de PropTypes para validación de tipos
+- Componentes modulares y reutilizables
+- CSS modular para evitar conflictos de estilos
+- Código limpio y documentado
+- Manejo de estados eficiente
+- Optimización de rendimiento
+
+## Contribución
+
+Las contribuciones son bienvenidas. Por favor, asegúrate de:
+
+1. Hacer fork del proyecto
+2. Crear una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit de tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abrir un Pull Request
 
 ## Licencia
 

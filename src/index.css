@@ -99,129 +99,6 @@ body,
   color: var(--primary-color);
 }
 
-/* Búsqueda */
-.search-container {
-  position: relative;
-}
-
-.search-dropdown {
-  position: absolute;
-  top: 120%;
-  right: 0;
-  background: var(--background-dark);
-  padding: 1rem;
-  border-radius: 4px;
-  display: none;
-  min-width: 300px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-}
-
-.search-dropdown.show {
-  display: block;
-  animation: fadeIn 0.3s ease;
-}
-
-.search-dropdown form {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.search-dropdown input {
-  flex: 1;
-  padding: 0.8rem 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-  color: var(--text-light);
-  font-size: 0.95rem;
-}
-
-.search-dropdown input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.search-dropdown button {
-  padding: 0.8rem 1.2rem;
-  background: var(--primary-color);
-  border: none;
-  border-radius: 4px;
-  color: var(--text-light);
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-weight: 500;
-}
-
-.search-dropdown button:hover {
-  background-color: #007a5c;
-}
-
-/* Grid de películas */
-.movie-grid {
-  width: 100%;
-  max-width: 1200px;
-  margin: 5rem auto 2rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  padding: 0 2rem;
-  justify-content: flex-start;
-}
-
-.movie-card {
-  flex: 0 0 200px;
-  aspect-ratio: 2/3;
-  position: relative;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.movie-poster {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 4px;
-}
-
-.movie-card:hover {
-  transform: scale(1.05);
-  z-index: 1;
-}
-
-/* Modal de película */
-.movie-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--overlay-dark);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1100;
-}
-
-.movie-modal-content {
-  background: var(--background-dark);
-  width: 90%;
-  max-width: 900px;
-  max-height: 90vh;
-  border-radius: 8px;
-  position: relative;
-  overflow: auto;
-  padding: 2rem;
-}
-
-.movie-modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
 .close-button,
 .back-button {
   background: none;
@@ -265,47 +142,11 @@ body,
     gap: 1rem;
   }
 
-  .search-dropdown {
-    position: fixed;
-    top: 60px;
-    left: 0;
-    right: 0;
-    width: 100%;
-    min-width: auto;
-    border-radius: 0;
-  }
-
-  .movie-grid {
-    width: 85%;
-    padding: 1rem;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .movie-card {
-    width: 100%;
-    max-width: 300px;
-  }
-
-  .movie-modal-content {
-    width: 95%;
-    padding: 1rem;
-  }
-}
-
 @media (max-width: 480px) {
-  .movie-grid {
-    width: 90%;
-    gap: 0.8rem;
-  }
-
   .nav-logo {
     font-size: 1.2rem;
   }
 
-  .movie-modal-content {
-    padding: 0.8rem;
-  }
 }
 
 /* Estilos generales */

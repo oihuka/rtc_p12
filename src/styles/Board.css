@@ -1,0 +1,146 @@
+/* Contenedor del tablero */
+.board-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border: 5px solid var(--secondary-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden; /* Para asegurar que las esquinas redondeadas funcionen */
+  max-width: 60vh;
+  max-height: 60vh;
+  aspect-ratio: 1 / 1;
+  padding: 0; /* Eliminar cualquier padding que pueda causar problemas */
+  background-color: var(
+    --secondary-color
+  ); /* Fondo transparente para integrarse con el resto de la página */
+}
+
+/* El tablero en sí */
+.chess-board {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: var(
+    --light-square
+  ); /* Color base para las casillas claras */
+  overflow: hidden; /* Evita problemas de desbordamiento */
+}
+
+/* Filas del tablero */
+.board-row {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos para las coordenadas del tablero */
+.board-coordinate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
+  color: var(--text-light);
+  font-weight: 600;
+  user-select: none;
+  background-color: var(
+    --secondary-color
+  ); /* Usar el color secundario para coordenadas */
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5); /* Sombra sutil para mejor legibilidad */
+}
+
+.board-coordinate.rank {
+  width: 16px;
+  height: 100%;
+}
+
+.board-coordinate.file {
+  width: 12.5%; /* Mismo ancho que las casillas */
+  height: 100%;
+  padding: 0;
+  line-height: 1;
+}
+
+.board-coordinate.empty {
+  width: 16px;
+  height: 100%;
+  background-color: var(
+    --secondary-color
+  ); /* Usar el color secundario para las esquinas */
+}
+
+.board-row.coordinates {
+  height: 16px;
+  width: 100%;
+  flex-shrink: 0;
+  background-color: var(
+    --secondary-color
+  ); /* Usar el color secundario para las filas de coordenadas */
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+  .board-coordinate {
+    font-size: 0.7rem;
+  }
+
+  .board-coordinate.rank {
+    width: 12px;
+  }
+
+  .board-coordinate.file {
+    height: 12px;
+  }
+
+  .board-coordinate.empty {
+    width: 12px;
+    height: 12px;
+  }
+
+  .board-row.coordinates {
+    height: 12px;
+  }
+
+  .board-container {
+    border-width: 3px;
+    max-width: 90vh;
+    max-height: 90vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .board-coordinate {
+    font-size: 0.6rem;
+  }
+
+  .board-coordinate.rank {
+    width: 10px;
+  }
+
+  .board-coordinate.file {
+    height: 10px;
+  }
+
+  .board-coordinate.empty {
+    width: 10px;
+    height: 10px;
+  }
+
+  .board-row.coordinates {
+    height: 10px;
+  }
+
+  .board-container {
+    border-width: 2px;
+    max-width: 95vh;
+    max-height: 95vh;
+  }
+}

@@ -1,60 +1,73 @@
 import { useState } from 'react';
-import { FaHome, FaSearch } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-import '../styles/components/Navbar.css';
+import { FaHome, FaChessKnight, FaChessBoard, FaBook } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import '../styles/Navbar.css';
 
 function Navbar() {
-  const [showSearch, setShowSearch] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!searchTerm.trim()) return;
-
-    navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
-    setShowSearch(false);
-  };
 
   const handleReset = () => {
     navigate('/');
-    setShowSearch(false);
-    setSearchTerm('');
+    setMenuOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
   };
 
   return (
     <nav className="navbar">
-      <section className="nav-content">
-        <header className="nav-brand">
-          <h1 className="nav-logo" onClick={handleReset}>MovieApp</h1>
-        </header>
-        <section className="nav-actions">
-          <FaHome 
-            className="nav-icon" 
-            onClick={handleReset}
-            title="Inicio"
-          />
-          <section className="search-container">
-            <FaSearch 
-              className={`nav-icon ${showSearch ? 'active' : ''}`}
-              onClick={() => setShowSearch(!showSearch)}
-              title="Buscar"
-            />
-            <aside className={`search-dropdown ${showSearch ? 'show' : ''}`}>
-              <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Títulos, personas, géneros"
-                  autoFocus
-                />
-                <button type="submit">Buscar</button>
-              </form>
-            </aside>
-          </section>
-        </section>
-      </section>
+      <div className="nav-content">
+        <div className="nav-brand">
+          <FaChessKnight className="logo-icon" />
+          <h1 className="nav-logo" onClick={handleReset}>Chess Master</h1>
+        </div>
+        
+        <div className="nav-toggle" onClick={toggleMenu}>
+          <span className={`toggle-bar ${menuOpen ? 'open' : ''}`}></span>
+          <span className={`toggle-bar ${menuOpen ? 'open' : ''}`}></span>
+          <span className={`toggle-bar ${menuOpen ? 'open' : ''}`}></span>
+        </div>
+        
+        <div className={`nav-menu ${menuOpen ? 'open' : ''}`}>
+          <Link 
+            to="/" 
+            className="nav-item" 
+            onClick={() => setMenuOpen(false)}
+          >
+            <FaHome className="nav-icon" />
+            <span>Inicio</span>
+          </Link>
+          
+          <Link 
+            to="/play" 
+            className="nav-item" 
+            onClick={() => setMenuOpen(false)}
+          >
+            <FaChessBoard className="nav-icon" />
+            <span>Jugar</span>
+          </Link>
+          
+          <Link 
+            to="/learn/pawn" 
+            className="nav-item" 
+            onClick={() => setMenuOpen(false)}
+          >
+            <FaBook className="nav-icon" />
+            <span>Aprender</span>
+          </Link>
+          
+          <Link 
+            to="/strategies" 
+            className="nav-item" 
+            onClick={() => setMenuOpen(false)}
+          >
+            <FaChessKnight className="nav-icon" />
+            <span>Estrategias</span>
+          </Link>
+        </div>
+      </div>
     </nav>
   );
 }

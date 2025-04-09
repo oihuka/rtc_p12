@@ -1,12 +1,35 @@
+/* Variables globales */
 :root {
-  --background-dark: #121212;
-  --background-light: #1e1e1e;
-  --primary-color: #00a97f;
-  --text-light: #ffffff;
-  --text-secondary: #b3b3b3;
-  --overlay-dark: rgba(0, 0, 0, 0.8);
+  /* Paleta de colores principal - Modo oscuro con tonos azules profundos */
+  --primary-color: #121a2e; /* Azul muy oscuro para el fondo principal */
+  --secondary-color: #1a2642; /* Azul oscuro para elementos secundarios */
+  --accent-color: #2a3a5c; /* Azul medio para acentos y elementos interactivos */
+  --highlight-color: #4d76b9; /* Azul brillante para destacados y elementos activos */
+
+  /* Colores de texto */
+  --text-light: #e8edf9; /* Blanco azulado para texto sobre fondos oscuros */
+  --text-muted: #a0aec0; /* Gris azulado para texto secundario */
+  --text-dark: #2d3748; /* Azul oscuro para texto sobre fondos claros */
+
+  /* Colores del tablero */
+  --light-square: #d1d8e6; /* Azul muy claro para casillas claras */
+  --dark-square: #4a5b7b; /* Azul medio para casillas oscuras */
+  --selected-square: #7b68ee; /* Violeta para casillas seleccionadas */
+  --valid-move: rgba(
+    144,
+    238,
+    144,
+    0.6
+  ); /* Verde claro para movimientos válidos */
+  --capture-indicator: rgba(255, 99, 71, 0.6); /* Rojo claro para capturas */
+
+  /* Efectos y utilidades */
+  --shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+  --border-radius: 8px;
+  --transition: all 0.3s ease;
 }
 
+/* Reset y estilos base */
 * {
   margin: 0;
   padding: 0;
@@ -14,38 +37,124 @@
 }
 
 body {
-  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--background-dark);
+  font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--primary-color);
   color: var(--text-light);
   line-height: 1.6;
 }
 
 a {
-  color: inherit;
+  color: var(--highlight-color);
   text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #6d96d9; /* Versión más clara del color de resaltado */
 }
 
 button {
-  font-family: inherit;
+  cursor: pointer;
+  background-color: var(--accent-color);
+  color: var(--text-light);
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
 }
 
+button:hover {
+  background-color: var(--highlight-color);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+/* Layout principal */
 .App {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 main {
   flex: 1;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .app-footer {
+  background-color: var(--secondary-color);
+  padding: 20px;
   text-align: center;
-  padding: 1.5rem;
-  margin-top: 2rem;
-  color: var(--text-secondary);
   font-size: 0.9rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+}
+
+/* Utilidades */
+.error-message {
+  color: #e53e3e; /* Rojo más suave */
+  background-color: rgba(229, 62, 62, 0.1);
+  padding: 15px;
+  border-radius: var(--border-radius);
+  margin: 20px 0;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  main {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 5px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
 }
 
 /* Estilos para imágenes responsivas */

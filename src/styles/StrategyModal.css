@@ -1,0 +1,173 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+}
+
+.strategy-modal {
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  animation: modalFadeIn 0.3s ease;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--accent-color);
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: var(--text-light);
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.close-button:hover {
+  color: var(--highlight-color);
+  background: none;
+}
+
+.modal-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.strategy-description p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--text-light);
+}
+
+.strategy-progress h4,
+.strategy-tips h4 {
+  margin-bottom: 10px;
+  color: var(--highlight-color);
+}
+
+.progress-container {
+  height: 20px;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: var(--highlight-color);
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--text-light);
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.strategy-tips ul {
+  list-style-type: none;
+  padding-left: 10px;
+}
+
+.strategy-tips li {
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 20px;
+  color: var(--text-light);
+}
+
+.strategy-tips li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--highlight-color);
+  font-size: 1.2rem;
+}
+
+.strategy-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.action-button {
+  background-color: var(--highlight-color);
+  color: var(--text-light);
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.action-button:hover {
+  background-color: #5d86c9; /* Versión más clara del color de resaltado */
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .strategy-modal {
+    width: 95%;
+  }
+
+  .modal-header {
+    padding: 12px 15px;
+  }
+
+  .modal-content {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .action-button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+}

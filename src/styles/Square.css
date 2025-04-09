@@ -1,0 +1,149 @@
+.chess-square {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12.5%; /* Exactamente 1/8 del ancho del tablero */
+  padding-bottom: 12.5%; /* Mantiene la proporción cuadrada */
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  float: left; /* Ayuda a alinear las casillas en una fila */
+  margin: 0;
+  padding: 0;
+}
+
+/* El contenido debe posicionarse absolutamente dentro de la casilla */
+.square-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chess-square:hover {
+  opacity: 0.9;
+}
+
+.light-square {
+  background-color: var(--light-square);
+}
+
+.dark-square {
+  background-color: var(--dark-square);
+}
+
+.selected {
+  position: relative;
+  box-shadow: inset 0 0 0 3px var(--selected-square);
+}
+
+.valid-move {
+  cursor: pointer;
+}
+
+/* Indicador visual para movimientos posibles */
+.move-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  background-color: var(--valid-move);
+  pointer-events: none;
+}
+
+/* Indicador visual para capturas posibles */
+.capture-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  border: 3px solid var(--capture-indicator);
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+/* Indicadores para el entrenador */
+.highlight-source-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 90%;
+  border: 3px solid var(--selected-square);
+  box-sizing: border-box;
+  animation: pulse 1.5s infinite;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.highlight-target-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 90%;
+  border: 3px solid var(--highlight-color);
+  box-sizing: border-box;
+  animation: pulse 1.5s infinite;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .move-indicator {
+    width: 25%;
+    height: 25%;
+  }
+
+  .capture-indicator,
+  .highlight-source-indicator,
+  .highlight-target-indicator {
+    width: 85%;
+    height: 85%;
+    border-width: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .move-indicator {
+    width: 20%;
+    height: 20%;
+  }
+
+  .capture-indicator,
+  .highlight-source-indicator,
+  .highlight-target-indicator {
+    width: 80%;
+    height: 80%;
+    border-width: 2px;
+  }
+}
